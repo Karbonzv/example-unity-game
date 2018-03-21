@@ -64,22 +64,22 @@ public class player : MonoBehaviour {
 			}
 		}
 
-		// mouse tests
-		// check if left mouse has been pressed this frame
-		if (Input.GetMouseButtonDown (0) == true) {
-			Debug.Log ("Mouse left button pressed down");
-		}
-		if (Input.GetMouseButton (0) == true) {
-			Debug.Log ("Mouse left button held");
-		}
-		if (Input.GetMouseButtonUp (0) == true) {
-			Debug.Log ("Mouse left button has been released");
-		}
-		if (Input.GetMouseButtonDown (1) == true) {
-			Debug.Log ("Mouse right button pressed down");
-		}
-		Debug.Log ("Mouse position = " + Input.mousePosition);
-
+//		// mouse tests
+//		// check if left mouse has been pressed this frame
+//		if (Input.GetMouseButtonDown (0) == true) {
+//			Debug.Log ("Mouse left button pressed down");
+//		}
+//		if (Input.GetMouseButton (0) == true) {
+//			Debug.Log ("Mouse left button held");
+//		}
+//		if (Input.GetMouseButtonUp (0) == true) {
+//			Debug.Log ("Mouse left button has been released");
+//		}
+//		if (Input.GetMouseButtonDown (1) == true) {
+//			Debug.Log ("Mouse right button pressed down");
+//		}
+//		Debug.Log ("Mouse position = " + Input.mousePosition);
+//
 
 	}
 
