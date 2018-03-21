@@ -8,8 +8,9 @@ public class player : MonoBehaviour {
 	public float speed = 2;
 	public float health = 100;
 	public float invulnerableDuration = 1;
-
-		private float invulnerableEndTime = 0;
+	public float blinkDuration = 0.5f;
+	private float invulnerableEndTime = 0;
+	public float blinkEndTime = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -27,9 +28,61 @@ public class player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Rigidbody2D ourRigidBody = GetComponent<Rigidbody2D> ();
-		float speed = 2;
-		ourRigidBody.velocity = Vector2.right * speed;
+	
+		// get the horizontal input (left/right arrows) between -1 and 1
+		float horizontal = Input.GetAxis ("Horizontal");
+
+		//get curent velocity from physics system
+		Vector2 velocity = ourRigidBody.velocity;
+
+		// set velocity based on input and speed value
+		velocity.x = horizontal * speed;
+
+		// put this velocity back into the physics system
+		ourRigidBody.velocity = velocity;
+
+
+
+		SpriteRenderer renderer = GetComponent<SpriteRenderer> ();
+
+		// flip the sprite on the x axis if velocity x is less than 0
+		renderer.flipX = velocity.x < 0;
+
+
+		if (Time.time >= invulnerableEndTime) { 
+
+			renderer.enabled = true;
+
+		} else {
+
+			if (Time.time >= blinkEndTime) {
+
+				renderer.enabled = !renderer.enabled;
+
+				blinkEndTime = Time.time + blinkDuration;
+
+			}
+		}
+
+		// mouse tests
+		// check if left mouse has been pressed this frame
+		if (Input.GetMouseButtonDown (0) == true) {
+			Debug.Log ("Mouse left button pressed down");
+		}
+		if (Input.GetMouseButton (0) == true) {
+			Debug.Log ("Mouse left button held");
+		}
+		if (Input.GetMouseButtonUp (0) == true) {
+			Debug.Log ("Mouse left button has been released");
+		}
+		if (Input.GetMouseButtonDown (1) == true) {
+			Debug.Log ("Mouse right button pressed down");
+		}
+		Debug.Log ("Mouse position = " + Input.mousePosition);
+
+
 	}
+
 
 	//string TestFunction (string message, int count) {
 	//	Debug.Log (message + " " + count);
