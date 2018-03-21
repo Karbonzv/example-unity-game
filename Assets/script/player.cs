@@ -11,7 +11,7 @@ public class player : MonoBehaviour {
 	public float blinkDuration = 0.5f;
 	private float invulnerableEndTime = 0;
 	public float blinkEndTime = 0;
-
+	public float jumpSpeed = 5;
 	// Use this for initialization
 	void Start () {
 		//damage (5);
@@ -37,6 +37,27 @@ public class player : MonoBehaviour {
 
 		// set velocity based on input and speed value
 		velocity.x = horizontal * speed;
+
+
+		// determine if touching ground
+		//get collide atachd to ground
+		Collider2D ourCollider = GetComponent<Collider2D>();
+
+		// get the layermask for the ground layer - we need this for the function cell
+		LayerMask groundLayer = LayerMask.GetMask("ground");
+
+		// ask the collider if we are touching this layer
+		bool isTouchingGround = ourCollider.IsTouchingLayers(groundLayer);
+
+
+
+		//jump logic
+		bool jumpPressed = Input.GetButtonDown("Jump");
+
+		if (jumpPressed == true && isTouchingGround == true) {
+			//apply jump tp velocity
+			velocity.y = jumpSpeed;
+		}
 
 		// put this velocity back into the physics system
 		ourRigidBody.velocity = velocity;
