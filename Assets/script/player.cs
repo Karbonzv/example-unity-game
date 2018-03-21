@@ -12,6 +12,7 @@ public class player : MonoBehaviour {
 	private float invulnerableEndTime = 0;
 	public float blinkEndTime = 0;
 	public float jumpSpeed = 5;
+	private float hasDoubleJummped = false;
 	// Use this for initialization
 	void Start () {
 		//damage (5);
@@ -24,7 +25,7 @@ public class player : MonoBehaviour {
 		//Debug.Log ("returned1 = " + returned1);
 		//Debug.Log ("returned2 = " + returned2);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		Rigidbody2D ourRigidBody = GetComponent<Rigidbody2D> ();
@@ -49,12 +50,22 @@ public class player : MonoBehaviour {
 		// ask the collider if we are touching this layer
 		bool isTouchingGround = ourCollider.IsTouchingLayers(groundLayer);
 
+		// if we are touching gounf we need to reset doubl jump
+		if (isTouchingGround == true) {
+			hasDoubleJummped = false;
+
+		bool allowedToJump = isTouchingGround;
+
+		if (isTouchingGround == false && hasDoubleJummped == false)
+			allowedToJump = true;
+
+
 
 
 		//jump logic
 		bool jumpPressed = Input.GetButtonDown("Jump");
 
-		if (jumpPressed == true && isTouchingGround == true) {
+		if (jumpPressed == true && allowedToJump == true) {
 			//apply jump tp velocity
 			velocity.y = jumpSpeed;
 		}
