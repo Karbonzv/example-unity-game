@@ -56,10 +56,13 @@ public class player : MonoBehaviour {
 		Collider2D ourCollider = GetComponent<Collider2D>();
 
 		// get the layermask for the ground layer - we need this for the function cell
-		LayerMask groundLayer = LayerMask.GetMask("ground");
+		LayerMask groundLayer = LayerMask.GetMask("Ground");
 
 		// ask the collider if we are touching this layer
 		bool isTouchingGround = ourCollider.IsTouchingLayers(groundLayer);
+
+		// set touching ground peramator on the animator
+		ourAnimator.SetBool("TouchingGround", isTouchingGround);
 
 		// if we are touching gounf we need to reset doubl jump
 		if (isTouchingGround == true) {
