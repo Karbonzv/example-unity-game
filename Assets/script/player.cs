@@ -12,7 +12,9 @@ public class player : MonoBehaviour {
 	private float invulnerableEndTime = 0;
 	public float blinkEndTime = 0;
 	public float jumpSpeed = 5;
-	private float hasDoubleJummped = false;
+	//private float hasDoubleJummped = false;
+	public int allowedAirJumps = 0;
+	private int numAirJumps = 0;
 	// Use this for initialization
 	void Start () {
 		//damage (5);
@@ -39,6 +41,15 @@ public class player : MonoBehaviour {
 		// set velocity based on input and speed value
 		velocity.x = horizontal * speed;
 
+		// get a reference to our animator
+		Animator ourAnimator = GetComponent<Animator>();
+
+		// determin what animator speed variable should be set to
+		float animatorSpeed = Mathf.Abs(velocity.x);
+
+		//set this value on the animator
+
+		ourAnimator.SetFloat ("speed", animatorSpeed);
 
 		// determine if touching ground
 		//get collide atachd to ground
@@ -52,11 +63,13 @@ public class player : MonoBehaviour {
 
 		// if we are touching gounf we need to reset doubl jump
 		if (isTouchingGround == true) {
-			hasDoubleJummped = false;
+			//hasDoubleJummped
+			numAirJumps = 0;
+		}
 
 		bool allowedToJump = isTouchingGround;
 
-		if (isTouchingGround == false && hasDoubleJummped == false)
+			if (isTouchingGround == false && numAirJumps < allowedAirJumps)
 			allowedToJump = true;
 
 
